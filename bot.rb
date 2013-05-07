@@ -177,7 +177,7 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!love (.+)/ do |m, nick|
-    m.reply "#{nick}: You got thousand kisses from #{m.user.nick} "
+    m.reply "#{nick}: You got a thousand kisses from #{m.user.nick} "
   end
 end
 bot.start
