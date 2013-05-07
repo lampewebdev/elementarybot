@@ -3,7 +3,7 @@ elementarybot
 
 
 
-Licence
+License
 =============
 Copyright (C) 2013 elementary Developers
 This program is free software: you can redistribute it and/or modify
