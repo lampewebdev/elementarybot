@@ -140,7 +140,7 @@ bot = Cinch::Bot.new do
     m.reply chuck() 
   end
 
-  on :message, /^!google (.+)/ do |m, query|
+  on :message, /^!(google|g) (.+)/ do |m, query|
     m.reply google(query)
   end
 
