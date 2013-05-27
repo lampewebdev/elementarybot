@@ -179,5 +179,9 @@ bot = Cinch::Bot.new do
   on :message, /^!love (.+)/ do |m, nick|
     m.reply "#{nick}: You got a thousand kisses from #{m.user.nick} "
   end
+
+  on :message, /^!op (.+)/ do |m, nick|
+    m.reply "#{nick}: You are talking about offtopic stuff! please join #elementary-offtopic"
+  end
 end
 bot.start
