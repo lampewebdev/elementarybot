@@ -182,7 +182,7 @@ bot = Cinch::Bot.new do
 
   on :message, /^!ot (.+)/ do |m, nick|
     if nick == bot.nick
-       m.reply "#{nick}: That's me!s"
+       m.reply "#{nick}: That's me!"
     else
        m.reply "#{nick}: You are talking about offtopic stuff! please join #elementary-offtopic"    
   end
