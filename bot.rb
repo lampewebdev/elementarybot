@@ -169,7 +169,7 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!help/ do |m, query|
-    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !ot <nick>"
+    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>,!ot <nick>, !telloff <nick>"
   end
 
   on :message, /^!hello/ do |m, query|
