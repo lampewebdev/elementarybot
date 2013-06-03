@@ -181,11 +181,17 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!ot (.+)/ do |m, nick|
-    m.reply "#{nick}: You are talking about offtopic stuff! please join #elementary-offtopic"
+    if nick == bot.nick
+       m.reply "#{nick}: That's me!s"
+    else
+       m.reply "#{nick}: You are talking about offtopic stuff! please join #elementary-offtopic"    
   end
   
   on :message, /^!telloff (.+)/ do |m, nick|
-    m.reply "#{nick}: You are being annoying. Accept this bribery and shut up."
+    if nick == bot.nick
+       m.reply "#{nick}: How dare you?!?"
+    else
+       m.reply "#{nick}: You are being annoying. Accept this bribery and shut up."        
   end
 end
 bot.start
