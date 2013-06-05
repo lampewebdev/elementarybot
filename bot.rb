@@ -20,11 +20,11 @@ end
 bot = Cinch::Bot.new do
   configure do |c|
     c.server   = "irc.freenode.net"
-    c.nick     = "MinionBot"
+    c.nick     = "MinionBot_testing"
     c.channels = ["#elementary-dev","#elementary","#elementary-offtopic"]
     
-    @users = {}
-    @memos = {}
+    @@users = {}
+    @@memos = {}
   end
 
   helpers do
@@ -98,7 +98,7 @@ bot = Cinch::Bot.new do
   end
 
   on :channel do |m|
-      @users[m.user.nick] = Seen.new(m.user.nick, m.channel, m.message, Time.new)
+      @@users[m.user.nick] = Seen.new(m.user.nick, m.channel, m.message, Time.new)
   end
 
   on :channel, /^!seen (.+)/ do |m, nick|
@@ -106,28 +106,28 @@ bot = Cinch::Bot.new do
         m.reply "That's me!"
       elsif nick == m.user.nick
         m.reply "That's you!"
-      elsif @users.key?(nick)
-        m.reply @users[nick].to_s
+      elsif @@users.key?(nick)
+        m.reply @@users[nick].to_s
       else
         m.reply "I haven't seen #{nick}"
       end
   end
 
   on :message do |m|
-    if @memos.has_key?(m.user.nick)
-      m.user.send @memos.delete(m.user.nick).to_s
+    if @@memos.has_key?(m.user.nick)
+      m.user.send @@memos.delete(m.user.nick).to_s
     end
   end
 
   on :message, /^!memo (.+?) (.+)/ do |m, nick, message|
-    if @memos.key?(nick)
+    if @@memos.key?(nick)
       m.reply "There's already a memo for #{nick}. You can only store one right now"
     elsif nick == m.user.nick
       m.reply "You can't leave memos for yourself.."
     elsif nick == bot.nick
       m.reply "You can't leave memos for me.."
     else
-      @memos[nick] = Memo.new(m.user.nick, m.channel, message, Time.now)
+      @@memos[nick] = Memo.new(m.user.nick, m.channel, message, Time.now)
       m.reply "Added memo for #{nick}"
     end
   end
@@ -185,6 +185,7 @@ bot = Cinch::Bot.new do
        m.reply "#{nick}: That's me!"
     else
        m.reply "#{nick}: You are talking about offtopic stuff! please join #elementary-offtopic"    
+    end
   end
   
   on :message, /^!telloff (.+)/ do |m, nick|
@@ -192,6 +193,7 @@ bot = Cinch::Bot.new do
        m.reply "#{nick}: How dare you?!?"
     else
        m.reply "#{nick}: You are being annoying. Accept this bribery and shut up."        
+    end
   end
 end
 bot.start
