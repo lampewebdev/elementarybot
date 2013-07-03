@@ -23,7 +23,6 @@ bot = Cinch::Bot.new do
     c.server   = "irc.freenode.net"
     c.nick     = "MinionBot_testing"
     c.channels = ["#elementary-dev","#elementary","#elementary-offtopic"]
-
     @@users = {}
     @@memos = Memos.new
   end
@@ -124,8 +123,16 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!memo (.+?) (.+)/ do |m, nick, message|
-    @@memos.add_memo(m.user.nick,nick, message, Time.now, m.channel.to_s)
-    m.reply "Added memo for #{nick}"
+    if nick == bot.nick
+      m.reply "Thanks, but no thanks!"
+      return
+    elsif m.user.nick == nick
+      m.reply "Stop talking to yourself"
+      return
+    else
+      @@memos.add_memo(m.user.nick,nick, message, Time.now, m.channel.to_s)
+      m.reply "Added memo for #{nick}"
+    end
   end
 
   on :message, /^!urban (.+)/ do |m, term|
