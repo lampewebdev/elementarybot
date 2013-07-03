@@ -2,8 +2,9 @@ require 'cinch'
 require 'open-uri'
 require 'nokogiri'
 require 'cgi'
-require "json"
-require "net/http"
+require 'json'
+require 'net/http'
+require "./MemoPlugin"
 
 class Memo < Struct.new(:nick, :channel, :text, :time)
   def to_s
@@ -22,9 +23,9 @@ bot = Cinch::Bot.new do
     c.server   = "irc.freenode.net"
     c.nick     = "MinionBot_testing"
     c.channels = ["#elementary-dev","#elementary","#elementary-offtopic"]
-    
+
     @@users = {}
-    @@memos = {}
+    @@memos = Memos.new
   end
 
   helpers do
@@ -97,6 +98,15 @@ bot = Cinch::Bot.new do
 
   end
 
+  on :join do |m, channel|
+    memos = @@memos.get_memo(m.user.nick)
+    if memos
+      memos.each do |memo|
+        m.user.send memo
+      end
+    end
+  end
+
   on :channel do |m|
       @@users[m.user.nick] = Seen.new(m.user.nick, m.channel, m.message, Time.new)
   end
@@ -113,23 +123,9 @@ bot = Cinch::Bot.new do
       end
   end
 
-  on :message do |m|
-    if @@memos.has_key?(m.user.nick)
-      m.user.send @@memos.delete(m.user.nick).to_s
-    end
-  end
-
   on :message, /^!memo (.+?) (.+)/ do |m, nick, message|
-    if @@memos.key?(nick)
-      m.reply "There's already a memo for #{nick}. You can only store one right now"
-    elsif nick == m.user.nick
-      m.reply "You can't leave memos for yourself.."
-    elsif nick == bot.nick
-      m.reply "You can't leave memos for me.."
-    else
-      @@memos[nick] = Memo.new(m.user.nick, m.channel, message, Time.now)
-      m.reply "Added memo for #{nick}"
-    end
+    @@memos.add_memo(m.user.nick,nick, message, Time.now, m.channel.to_s)
+    m.reply "Added memo for #{nick}"
   end
 
   on :message, /^!urban (.+)/ do |m, term|
@@ -137,7 +133,7 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!chuck/ do |m, term|
-    m.reply chuck() 
+    m.reply chuck()
   end
 
   on :message, /^!(google|g) (.+)/ do |m, query|
@@ -184,15 +180,15 @@ bot = Cinch::Bot.new do
     if nick == bot.nick
        m.reply "#{nick}: That's me!"
     else
-       m.reply "#{nick}: You are talking about offtopic stuff! please join #elementary-offtopic"    
+       m.reply "#{nick}: You are talking about offtopic stuff! please join #elementary-offtopic"
     end
   end
-  
+
   on :message, /^!telloff (.+)/ do |m, nick|
     if nick == bot.nick
        m.reply "#{nick}: How dare you?!?"
     else
-       m.reply "#{nick}: You are being annoying. Accept this bribery and shut up."        
+       m.reply "#{nick}: You are being annoying. Accept this bribery and shut up."
     end
   end
 end
