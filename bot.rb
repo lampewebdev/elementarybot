@@ -22,7 +22,7 @@ bot = Cinch::Bot.new do
   configure do |c|
     c.server   = "irc.freenode.net"
     c.nick     = "MinionBot_testing"
-    c.channels = ["#elementary-dev","#elementary","#elementary-offtopic","elementary-apps"]
+    c.channels = ["#elementary-dev","#elementary","#elementary-offtopic","elementary-apps","elementary-translators"]
     @@users = {}
     @@memos = Memos.new
   end
