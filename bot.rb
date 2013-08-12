@@ -22,7 +22,7 @@ bot = Cinch::Bot.new do
   configure do |c|
     c.server   = "irc.freenode.net"
     c.nick     = "MinionBot_testing"
-    c.channels = ["#elementary-dev","#elementary","#elementary-offtopic","#elementary-apps","#elementary-translators"]
+    c.channels = ["#elementary-dev","#elementary","#elementary-offtopic","#elementary-apps","#elementary-translators","#elementary-de"]
     @@users = {}
     @@memos = Memos.new
   end
@@ -162,6 +162,7 @@ bot = Cinch::Bot.new do
   on :message, /^!github (.+?) (.+)/ do |m, author, project|
    m.reply " https://www.github.com/#{author}/#{project}"
   end
+  
   on :message, /^!weatherf (.+)/ do |m, query|
     m.reply "#{m.user.nick}: " + weatherf(query)
   end
@@ -179,7 +180,7 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!help/ do |m, query|
-    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>"
+    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !ot <name>, !support <name>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>"
   end
 
   on :message, /^!hello/ do |m, query|
@@ -194,7 +195,15 @@ bot = Cinch::Bot.new do
     if nick == bot.nick
        m.reply "#{nick}: That's me!"
     else
-       m.reply "#{nick}: You are talking about offtopic stuff! please join #elementary-offtopic"
+       m.reply "#{nick}: You are talking about offtopic stuff! Please join #elementary-offtopic"
+    end
+  end
+  
+  on :message, /^!support (.+)/ do |m, nick|
+    if nick == bot.nick
+       m.reply "#{nick}: That's me!"
+    else
+       m.reply "#{nick}: You are talking about support stuff! Please join #elementary"
     end
   end
 
@@ -202,7 +211,7 @@ bot = Cinch::Bot.new do
     if nick == bot.nick
        m.reply "#{nick}: That's me!"
     else
-       m.reply "#{nick}: If you want to change your irc-nick please use '/nick <yournick>'"    
+       m.reply "#{nick}: If you want to change your irc-nick, please use '/nick <yournick>'"    
     end
   end
 
