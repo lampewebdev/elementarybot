@@ -95,9 +95,17 @@ bot = Cinch::Bot.new do
         CGI.unescape_html "#{title} - #{link}"
     end
 
+    def information()
+        text = "Welcome to the elementary developer channel. This place is for elementary OS development discussion ONLY. For support  join #elementary.
+This channel is logged. For the location of logs please check the message of the day."
+        text
+    end
   end
 
   on :join do |m, channel|
+    #inform users
+    m.user.send(information())
+
     memos = @@memos.get_memo(m.user.nick)
     if memos
       memos.each do |memo|
@@ -162,7 +170,7 @@ bot = Cinch::Bot.new do
   on :message, /^!github (.+?) (.+)/ do |m, author, project|
    m.reply " https://www.github.com/#{author}/#{project}"
   end
-  
+
   on :message, /^!weatherf (.+)/ do |m, query|
     m.reply "#{m.user.nick}: " + weatherf(query)
   end
@@ -198,7 +206,7 @@ bot = Cinch::Bot.new do
        m.reply "#{nick}: You are talking about offtopic stuff! Please join #elementary-offtopic"
     end
   end
-  
+
   on :message, /^!support (.+)/ do |m, nick|
     if nick == bot.nick
        m.reply "#{nick}: That's me!"
@@ -211,7 +219,7 @@ bot = Cinch::Bot.new do
     if nick == bot.nick
        m.reply "#{nick}: That's me!"
     else
-       m.reply "#{nick}: If you want to change your irc-nick, please use '/nick <yournick>'"    
+       m.reply "#{nick}: If you want to change your irc-nick, please use '/nick <yournick>'"
     end
   end
 
