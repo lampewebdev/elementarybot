@@ -102,8 +102,8 @@ This channel is logged. For the location of logs please check the message of the
     end
   end
 
-  on :join do |m, channel|
-    if channel == "#elementary-dev"
+  on :join do |m|
+    if m.channel == "#elementary-dev"
         #inform users
         m.user.notice(information())
     end
