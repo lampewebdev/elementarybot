@@ -105,7 +105,7 @@ This channel is logged. For the location of logs please check the message of the
   on :join do |m, channel|
     if channel == "#elementary-dev"
         #inform users
-        m.user.send(information())
+        m.user.notice(information())
     end
 
     memos = @@memos.get_memo(m.user.nick)
