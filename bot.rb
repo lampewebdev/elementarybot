@@ -190,7 +190,7 @@ This channel is logged. For the location of logs please check the message of the
   end
 
   on :message, /^!help/ do |m, query|
-    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !ot <name>, !support <name>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>"
+    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !ot <name>, !support <name>, !web <name>, !ask <name>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>"
   end
 
   on :message, /^!hello/ do |m, query|
@@ -214,6 +214,22 @@ This channel is logged. For the location of logs please check the message of the
        m.reply "#{nick}: That's me!"
     else
        m.reply "#{nick}: You are talking about support stuff! Please join #elementary"
+    end
+  end
+
+  on :message, /^!ask (.+)/ do |m, nick|
+    if nick == bot.nick
+       m.reply "#{nick}: That's me!"
+    else
+       m.reply "#{nick}: Don't ask to ask a question, just ask"
+    end
+  end
+  
+  on :message, /^!web (.+)/ do |m, nick|
+    if nick == bot.nick
+       m.reply "#{nick}: That's me!"
+    else
+       m.reply "#{nick}: You are talking about website related stuff! Please join #elementary-web"
     end
   end
 
