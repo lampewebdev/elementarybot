@@ -82,18 +82,19 @@ bot = Cinch::Bot.new do
       return result['slip']['advice']
     end
 
-    def google(query)
-      url = "http://www.google.com/search?q=#{CGI.escape(query)}"
-      res = Nokogiri::HTML(open(url))
-      title = res.at("h3.r").text
-      link = res.css('h3.r').first
-      link = link.to_s.match(/q=(.*)&amp;sa/m)[1].strip
-      CGI.unescape_html "#{title} - #{link}"
-      rescue
-        "No results found"
-      else
-        CGI.unescape_html "#{title} - #{link}"
-    end
+# it does not work 
+#    def google(query)
+#      url = "http://www.google.com/search?q=#{CGI.escape(query)}"
+#      res = Nokogiri::HTML(open(url))
+#      title = res.at("h3.r").text
+#      link = res.css('h3.r').first
+#      link = link.to_s.match(/q=(.*)&amp;sa/m)[1].strip
+#      CGI.unescape_html "#{title} - #{link}"
+#      rescue
+#        "No results found"
+#      else
+#        CGI.unescape_html "#{title} - #{link}"
+#    end
 
     def information()
         text = "Welcome to the elementary developer channel. This place is for elementary OS development discussion ONLY. For support  join #elementary.
@@ -154,7 +155,7 @@ This channel is logged. For the location of logs please check the message of the
   end
 
   on :message, /^!(google|g) (.+)/ do |m, query|
-    m.reply google(query)
+    m.reply "http://www.google.com/search?q=#{query}"
   end
 
   on :message, /^!lp (.+)/ do |m,query|
@@ -190,7 +191,7 @@ This channel is logged. For the location of logs please check the message of the
   end
 
   on :message, /^!help/ do |m, query|
-    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !ot <name>, !support <name>, !web <name>, !ask <name>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>"
+    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !ot <name>, !support <name>, !web <name>, !ask <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>"
   end
 
   on :message, /^!hello/ do |m, query|
@@ -222,6 +223,14 @@ This channel is logged. For the location of logs please check the message of the
        m.reply "#{nick}: That's me!"
     else
        m.reply "#{nick}: Don't ask to ask a question, just ask"
+    end
+  end
+  
+  on :message, /^!give (.+)/ do |m, nick, command|
+    if nick == bot.nick
+       m.reply "#{nick}: That's me!"
+    else
+       m.reply "#{nick}: Open a terminal (Ctrl+Alt+T) and type: '#{command}'. If there are any errors, please paste it with a paste-service like pastebin.com"
     end
   end
   
