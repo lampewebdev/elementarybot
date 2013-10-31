@@ -159,7 +159,7 @@ This channel is logged. For the location of logs please check the message of the
   end
 
   on :message, /^!lp (.+)/ do |m,query|
-    m.reply "http://launchpad.net/#{query}"
+    m.reply "https://launchpad.net/#{query}"
   end
 
   on :message, /^!bug (.+)/ do |m,query|
@@ -191,7 +191,7 @@ This channel is logged. For the location of logs please check the message of the
   end
 
   on :message, /^!help/ do |m, query|
-    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !ot <name>, !support <name>, !web <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>"
+    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !ot <name>, !support <name>, !web <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>, !report <project> | <nick>, "
   end
 
   on :message, /^!hello/ do |m, query|
@@ -264,6 +264,29 @@ This channel is logged. For the location of logs please check the message of the
     else
       m.reply "#{nick}: You are being annoying. Accept this bribery and shut up."
     end
+  end
+
+  on :message, /^!report (.+)/ do |m, project|
+    m.reply "https://bugs.launchpad.net/#{project}/+filebug"
+  end
+
+  on :message, /^!report (.+) \| (.+)/ do |m, project, nick|
+    m.reply "#{nick}: https://bugs.launchpad.net/#{project}/+filebug"
+  end
+  on :message, /(:?bug|\#) *([0-9]+)/ do |m, bug|
+    m.reply "https://bugs.launchpad.net/bugs/#{bug}"
+  end
+
+  on :message, /lp:([a-zA-Z0-9\/\-\+]+)/ do |m, project|
+    m.reply "https://code.launchpad.net/+branch/#{project}"
+  end
+
+  on :message, /lp:~([a-zA-Z0-9\/\-\+]+)/ do |m, branch|
+    m.reply "https://code.launchpad.net/~#{branch}"
+  end
+
+  on :message, /ppa:([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)/ do |m, ppa|
+    m.reply "https://code.launchpad.net/~#{ppa}"
   end
 end
 
