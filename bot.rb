@@ -191,7 +191,7 @@ This channel is logged. For the location of logs please check the message of the
   end
 
   on :message, /^!help/ do |m, query|
-    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !ot <name>, !support <name>, !web <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>, !report <project> | <nick>, "
+    m.reply "#{m.user.nick}: I know these Commands: !google <searchterm>, !lp <name>, !ot <name>, !support <name>, !web <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !ten <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>, !report <project> | <nick>, "
   end
 
   on :message, /^!hello/ do |m, query|
@@ -215,6 +215,14 @@ This channel is logged. For the location of logs please check the message of the
        m.reply "#{nick}: That's me!"
     else
        m.reply "#{nick}: A common kernel (boot)parameter is nomodeset, which is needed for some graphic cards that otherwise boot into a black screen or show corrupted splash screen. See http://ubuntuforums.org/showthread.php?t=1613132 on how to use this parameter"
+    end
+  end
+  
+  on :message, /^!ten (.+)/ do |m, nick|
+    if nick == bot.nick
+       m.reply "#{nick}: That's me!"
+    else
+       m.reply "#{nick}:See: http://www.elementaryupdate.com/2013/08/top-things-to-do-after-installing-luna.html"
     end
   end
 
