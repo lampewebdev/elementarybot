@@ -22,7 +22,7 @@ bot = Cinch::Bot.new do
   configure do |c|
     c.server   = "chat.freenode.net"
     c.nick     = "MinionBot_testing"
-    c.channels = ["#elementary-dev","#elementary","#elementary-offtopic","#elementary-apps","#elementary-translators","#elementary-de"]
+    c.channels = ["#elementary-dev","#elementary","#elementary-offtopic","#elementary-apps","#elementary-translators","#elementary-de"]    
     @@users = {}
     @@memos = Memos.new
   end
@@ -191,7 +191,7 @@ This channel is logged. For the location of logs please check the message of the
   end
 
   on :message, /^!help/ do |m, query|
-    m.reply "#{m.user.nick}: I know these Commands: !lp <name>, !ot <name>, !support <name>, !web <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !ten <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>, !report <project> <nick>, "
+    m.reply "#{m.user.nick}: I know these Commands: !lp <name>, !ot <name>, !support <name>, !web <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !ten <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !gtk <gtk widget>, !github <author> <project name>, !report <nick> <project>"
   end
 
   on :message, /^!hello/ do |m, query|
@@ -274,11 +274,7 @@ This channel is logged. For the location of logs please check the message of the
     end
   end
 
-  on :message, /^!report (.+)/ do |m, project|
-    m.reply "https://bugs.launchpad.net/#{project}/+filebug"
-  end
-
-  on :message, /^!report (.+) \| (.+)/ do |m, project, nick|
+  on :message, /^!report (.+?) (.+)/ do |m, nick, project|
     m.reply "#{nick}: https://bugs.launchpad.net/#{project}/+filebug"
   end
   on :message, /(:?bug|\#) *([0-9]+)/ do |m, bug|
