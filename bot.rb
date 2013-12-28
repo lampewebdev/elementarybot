@@ -96,18 +96,18 @@ bot = Cinch::Bot.new do
 #        CGI.unescape_html "#{title} - #{link}"
 #    end
 
-    def information()
-        text = "Welcome to the elementary developer channel. This place is for elementary OS development discussion ONLY. For support join #elementary.
-This channel is logged. For the location of logs please check the message of the day."
-        text
-    end
-  end
+#    def information()
+#        text = "Welcome to the elementary developer channel. This place is for elementary OS development discussion ONLY. For support join #elementary.
+#This channel is logged. For the location of logs please check the message of the day."
+#        text
+#    end
+#  end
 
-  on :join do |m|
-    if m.channel == "#elementary-dev"
-        #inform users
-        m.user.notice(information())
-    end
+#  on :join do |m|
+#    if m.channel == "#elementary-dev"
+#        #inform users
+#        m.user.notice(information())
+#    end
 
     memos = @@memos.get_memo(m.user.nick)
     if memos
@@ -133,7 +133,7 @@ This channel is logged. For the location of logs please check the message of the
       end
   end
 
-  on :message, /^!memo (.+?) (.+)/ do |m, nick, message|
+  on :message, /^!memom (.+?) (.+)/ do |m, nick, message|
     if nick == bot.nick
       m.reply "Thanks, but no thanks!"
       return
@@ -154,11 +154,11 @@ This channel is logged. For the location of logs please check the message of the
     m.reply chuck()
   end
 
-  on :message, /^!google (.+)/ do |m, query|
+  on :message, /^!googlem (.+)/ do |m, query|
     m.reply "Search for solutions: 'http://www.google.com/search?q=#{query}'"
   end
 
-  on :message, /^!lp (.+)/ do |m,query|
+  on :message, /^!lpm (.+)/ do |m,query|
     m.reply "https://launchpad.net/#{query}"
   end
 
@@ -226,7 +226,7 @@ This channel is logged. For the location of logs please check the message of the
     end
   end
 
-  on :message, /^!support (.+)/ do |m, nick|
+  on :message, /^!supportm (.+)/ do |m, nick|
     if nick == bot.nick
        m.reply "#{nick}: That's me!"
     else
@@ -250,7 +250,7 @@ This channel is logged. For the location of logs please check the message of the
     end
   end
   
-  on :message, /^!web (.+)/ do |m, nick|
+  on :message, /^!webm (.+)/ do |m, nick|
     if nick == bot.nick
        m.reply "#{nick}: That's me!"
     else
@@ -293,21 +293,22 @@ This channel is logged. For the location of logs please check the message of the
   on :message, /^!report (.+?) (.+)/ do |m, nick, project|
     m.reply "#{nick}: https://bugs.launchpad.net/#{project}/+filebug"
   end
-  on :message, /(:?bug|\#) *([0-9]+)/ do |m, bug|
-    m.reply "https://bugs.launchpad.net/bugs/#{bug}"
-  end
 
-  on :message, /lp:([a-zA-Z0-9\/\-\+]+)/ do |m, project|
-    m.reply "https://code.launchpad.net/+branch/#{project}"
-  end
+#  on :message, /(:?bug|\#) *([0-9]+)/ do |m, bug|
+#    m.reply "https://bugs.launchpad.net/bugs/#{bug}"
+#  end
 
-  on :message, /lp:~([a-zA-Z0-9\/\-\+]+)/ do |m, branch|
-    m.reply "https://code.launchpad.net/~#{branch}"
-  end
+#  on :message, /lp:([a-zA-Z0-9\/\-\+]+)/ do |m, project|
+#    m.reply "https://code.launchpad.net/+branch/#{project}"
+#  end
 
-  on :message, /ppa:([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)/ do |m, ppa|
-    m.reply "https://code.launchpad.net/~#{ppa}"
-  end
-end
+#  on :message, /lp:~([a-zA-Z0-9\/\-\+]+)/ do |m, branch|
+#    m.reply "https://code.launchpad.net/~#{branch}"
+#  end
+
+#  on :message, /ppa:([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)/ do |m, ppa|
+#    m.reply "https://code.launchpad.net/~#{ppa}"
+#  end
+#end
 
 bot.start
