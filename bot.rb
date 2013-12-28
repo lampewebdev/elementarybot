@@ -191,7 +191,7 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!help/ do |m, query|
-    m.reply "#{m.user.nick}: I know these Commands: !lp <name>, !ot <name>, !support <name>, !web <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !ten <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !away <nick>, !kernel <nick>, !gtk <gtk widget>, !github <author> <project name>, !report <nick> <project>"
+    m.reply "#{m.user.nick}: I know these Commands: !urban <term>, !lpm <name>, !ot <name>, !supportm <name>, !webm <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memom <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !ten <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !away <nick>, !kernel <nick>, !gtk <gtk widget>, !github <author> <project name>, !report <nick> <project>"
   end
 
   on :message, /^!hello/ do |m, query|
