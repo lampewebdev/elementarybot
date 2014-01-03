@@ -291,7 +291,7 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!report (.+?) (.+)/ do |m, nick, project|
-    m.reply "#{nick}: https://bugs.launchpad.net/#{project}/+filebug"
+    m.reply "#{nick}: Read: http://elementaryos.org/docs/code/reporting-bugs and then report it: https://bugs.launchpad.net/#{project}/+filebug"
   end
 
 #  on :message, /(:?bug|\#) *([0-9]+)/ do |m, bug|
