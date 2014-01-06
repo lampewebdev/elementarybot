@@ -96,18 +96,18 @@ bot = Cinch::Bot.new do
 #        CGI.unescape_html "#{title} - #{link}"
 #    end
 
-#    def information()
-#        text = "Welcome to the elementary developer channel. This place is for elementary OS development discussion ONLY. For support join #elementary.
-#This channel is logged. For the location of logs please check the message of the day."
-#        text
-#    end
-#  end
+    def information()
+        text = "Welcome to the elementary developer channel. This place is for elementary OS development discussion ONLY. For support join #elementary.
+This channel is logged. For the location of logs please check the message of the day."
+        text
+    end
+  end
 
-#  on :join do |m|
-#    if m.channel == "#elementary-dev"
-#        #inform users
-#        m.user.notice(information())
-#    end
+  on :join do |m|
+    if m.channel == "#elementary-dev"
+        #inform users
+        m.user.notice(information())
+    end
 
     memos = @@memos.get_memo(m.user.nick)
     if memos
@@ -133,7 +133,7 @@ bot = Cinch::Bot.new do
       end
   end
 
-  on :message, /^!memom (.+?) (.+)/ do |m, nick, message|
+  on :message, /^!memo (.+?) (.+)/ do |m, nick, message|
     if nick == bot.nick
       m.reply "Thanks, but no thanks!"
       return
@@ -154,11 +154,11 @@ bot = Cinch::Bot.new do
     m.reply chuck()
   end
 
-  on :message, /^!googlem (.+)/ do |m, query|
+  on :message, /^!google (.+)/ do |m, query|
     m.reply "Search for solutions: 'http://www.google.com/search?q=#{query}'"
   end
 
-  on :message, /^!lpm (.+)/ do |m,query|
+  on :message, /^!lp (.+)/ do |m,query|
     m.reply "https://launchpad.net/#{query}"
   end
 
@@ -191,7 +191,7 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!help/ do |m, query|
-    m.reply "#{m.user.nick}: I know these Commands: !urban <term>, !lpm <name>, !ot <name>, !supportm <name>, !webm <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memom <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !ten <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !away <nick>, !kernel <nick>, !gtk <gtk widget>, !github <author> <project name>, !report <nick> <project>"
+    m.reply "#{m.user.nick}: I know these Commands: !lp <name>, !ot <name>, !support <name>, !web <name>, !askm <name>, !give <name> <command>, !bug <number>, !seen <nick>, !hello, !memo <nick> <message>, !chuck, !love <nick>, !nomodeset <nick>, !ten <nick>, !randomadvice, !advice <term>, !weatherc <city,land>, !weatherf <city,land>, !telloff <nick>, !away <nick>, !kernel <nick>, !gtk <gtk widget>, !github <author> <project name>, !report <nick> <project>"
   end
 
   on :message, /^!hello/ do |m, query|
@@ -226,7 +226,7 @@ bot = Cinch::Bot.new do
     end
   end
 
-  on :message, /^!supportm (.+)/ do |m, nick|
+  on :message, /^!support (.+)/ do |m, nick|
     if nick == bot.nick
        m.reply "#{nick}: That's me!"
     else
@@ -250,7 +250,7 @@ bot = Cinch::Bot.new do
     end
   end
   
-  on :message, /^!webm (.+)/ do |m, nick|
+  on :message, /^!web (.+)/ do |m, nick|
     if nick == bot.nick
        m.reply "#{nick}: That's me!"
     else
@@ -291,24 +291,23 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /^!report (.+?) (.+)/ do |m, nick, project|
-    m.reply "#{nick}: Read: http://elementaryos.org/docs/code/reporting-bugs and then report it: https://bugs.launchpad.net/#{project}/+filebug"
+    m.reply "#{nick}: https://bugs.launchpad.net/#{project}/+filebug"
+  end
+  on :message, /(:?bug|\#) *([0-9]+)/ do |m, bug|
+    m.reply "https://bugs.launchpad.net/bugs/#{bug}"
   end
 
-#  on :message, /(:?bug|\#) *([0-9]+)/ do |m, bug|
-#    m.reply "https://bugs.launchpad.net/bugs/#{bug}"
-#  end
+  on :message, /lp:([a-zA-Z0-9\/\-\+]+)/ do |m, project|
+    m.reply "https://code.launchpad.net/+branch/#{project}"
+  end
 
-#  on :message, /lp:([a-zA-Z0-9\/\-\+]+)/ do |m, project|
-#    m.reply "https://code.launchpad.net/+branch/#{project}"
-#  end
+  on :message, /lp:~([a-zA-Z0-9\/\-\+]+)/ do |m, branch|
+    m.reply "https://code.launchpad.net/~#{branch}"
+  end
 
-#  on :message, /lp:~([a-zA-Z0-9\/\-\+]+)/ do |m, branch|
-#    m.reply "https://code.launchpad.net/~#{branch}"
-#  end
-
-#  on :message, /ppa:([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)/ do |m, ppa|
-#    m.reply "https://code.launchpad.net/~#{ppa}"
-#  end
-#end
+  on :message, /ppa:([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)/ do |m, ppa|
+    m.reply "https://code.launchpad.net/~#{ppa}"
+  end
+end
 
 bot.start
